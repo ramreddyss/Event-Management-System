@@ -85,22 +85,27 @@
     </nav>
 </header>
 
-    <section>
-        <h2>Description</h2>
-        <p>{{ event.description }}</p>
-        
-        <h2>Date and Time</h2>
-        <p>{{ event.date|date:"F j, Y, P" }} <!-- This will format the date like "January 1, 2020, 1:00 p.m." --></p>
-        
-        <h2>Organizer Name</h2>
-        <p>{{ event.organizer }}</p>
+<!-- Form Content -->
+{% block content %}
+<h2>Add Event</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Event</button>
+</form>
+{% endblock %}
 
-        <h2>Location</h2>
-        <p>{{ event.location }}</p>
-    </section>
-
-    <footer>
-        <!-- Your footer content, if any -->
-    </footer>
 </body>
 </html>
+
+
+{% comment %} {% load static %}
+
+{% block content %}
+<h2>Add Event</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Event</button>
+</form>
+{% endblock %} {% endcomment %}

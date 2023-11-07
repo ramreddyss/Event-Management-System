@@ -1,20 +1,141 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event List</title>
+    <title>Events List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .logo {
+            width: 150px;
+        }
+
+        nav a {
+            margin-left: 15px;
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a.active, nav a:hover {
+            background-color: #555;
+        }
+
+        .events-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .event-card {
+            background-color: #fff;
+            margin: 15px;
+            width: 300px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .event-card h3 {
+            background-color: #333;
+            color: #fff;
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .event-card-content {
+            padding: 10px;
+        }
+
+        .event-card-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .event-card-actions a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .event-card-actions a:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .add-event-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-event-btn:hover {
+            background-color: #555;
+        }
+
+    </style>
 </head>
+
 <body>
-    <h1>Event List</h1>
-    <ul>
-        {% for event in events %}
-            <li>
-                <a href="{% url 'event_detail' pk=event.pk %}">{{ event.name }}</a>
-                - {{ event.date }}
-            </li>
-        {% endfor %}
-    </ul>
+
+<header>
+    <img src="{% static 'images/events_logo.gif' %}" alt="Events Logo" class="logo">
+    <nav>
+        <a href="{% url 'landing_page' %}">Home</a>
+        <a href="{% url 'event_list' %}">Events list</a>
+    </nav>
+</header>
+<h1>Events List:</h1>
+<!-- At the top of your event_list.html -->
+{% comment %} <a href="{% url 'add_event' %}">Add New Event</a> {% endcomment %}
+<a href="{% url 'add_event' %}" style="background-color: #555; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border: none; cursor: pointer; border-radius: 4px; margin-left: 5px;">Add New Event</a>
+
+{% for event in events %}
+    <div>
+        <h2>{{ event }}</h2>
+        <p>{{ event.description }}</p>  <!-- Add this line -->
+        <a href="{% url 'event_detail' event.id %}" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border: none; cursor: pointer; border-radius: 4px; margin-left: 5px;">View Details</a>
+        <a href="{% url 'event_edit' event.id %}" style="background-color: #FFA500; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border: none; cursor: pointer; border-radius: 4px; margin-left: 5px;">Edit</a>
+        <a href="{% url 'event_delete' event.id %}" style="background-color: #FF4500; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border: none; cursor: pointer; border-radius: 4px; margin-left: 5px;">Remove</a>
+        {% comment %} <a href="{% url 'event_edit' event.id %}" style="background-color: #FFA500; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border: none; cursor: pointer; border-radius: 4px; margin-left: 5px;">Edit</a>
+        <a href="{% url 'event_remove' event.id %}" style="background-color: #FF4500; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border: none; cursor: pointer; border-radius: 4px; margin-left: 5px;">Remove</a>
+        <!-- Display other event details here --> {% endcomment %}
+    </div>
+{% endfor %}
+
+
+
 </body>
 </html>

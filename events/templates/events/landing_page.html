@@ -1,25 +1,105 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Management Landing Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Event Management Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .hero-section img {
+            max-width: 50%; /* Adjust as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin: 20px 0;
+        }
+    
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .hero-section img {
+                max-width: 100%; /* Full width on smaller devices */
+            }
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .logo {
+            height: 50px; /* Adjust the logo size */
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a.active, nav a:hover {
+            background-color: #555;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .hero-section img {
+                width: 100%;
+            }
+        }
+
+    </style>
 </head>
-
 <body>
-    <div class="container mt-5">
-        <div class="jumbotron text-center">
-            <h1>Welcome to Event Management</h1>
-            <p>Your one-stop solution for managing events!</p>
-            <a href="{% url 'event_list' %}" class="btn btn-primary">View Events</a>
-        </div>
+
+<header class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="{% url 'landing_page' %}">
+        <img src="{% static 'images/events_logo.gif' %}" alt="Events Logo" class="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'landing_page' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'event_list' %}">Events list</a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                </li>
+            {% endif %}
+        </ul>
     </div>
+</header>
 
-    <!-- Optional: Include jQuery and Bootstrap JS for interactivity -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div class="hero-section text-center">
+    <h1>Welcome to the Event Management System!</h1>
+    <img src="{% static 'images/event_planning.jpg' %}" class="img-fluid" alt="Event Planning">
+    <p>Our platform empowers you to seamlessly create, manage, and view events. Built with Django, we aim to provide an efficient user experience.</p>
+    <a href="{% url 'event_list' %}" class="btn btn-primary">Explore Now</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
-
 </html>
